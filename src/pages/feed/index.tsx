@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 import { parseCookies } from 'nookies';
 import api from 'services/api';
 import { useAuth } from 'hooks/auth';
-import { getAPIClient } from '../../services/axios';
+import { getAPIClient } from 'services/axios';
 import PiuCard from '../../components/PiuCard';
 import Logo from '../../assets/Logo.svg';
 import * as S from './styles';
