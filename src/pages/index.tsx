@@ -19,24 +19,29 @@ const Login: NextPage = () => {
                 <S.By>By Poli Júnior© 2021</S.By>
             </S.Esquerda>
             <S.Direita>
-                <S.Log>Entre no Piupiuwer</S.Log>
-                <S.Input
-                    type="text"
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <S.Input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <S.LogIn
-                    onClick={() =>
-                        login({ email: `${email}`, password: `${password}` })
-                    }
-                >
-                    Entrar
-                </S.LogIn>
+                <S.LoginBox>
+                    <S.Log>Entre no Piupiuwer</S.Log>
+                    <S.Input
+                        type="text"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <S.Input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <S.LogIn
+                        onClick={() =>
+                            login({
+                                email: `${email}`,
+                                password: `${password}`
+                            })
+                        }
+                    >
+                        Entrar
+                    </S.LogIn>
+                </S.LoginBox>
             </S.Direita>
         </S.Container>
     );
