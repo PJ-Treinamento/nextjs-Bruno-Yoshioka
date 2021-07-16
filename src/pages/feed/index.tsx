@@ -8,7 +8,7 @@ import { useAuth } from 'hooks/auth';
 import { getAPIClient } from 'services/axios';
 import PiuCard from '../../components/PiuCard';
 import Logo from '../../assets/Logo.svg';
-import * as S from './styles';
+import * as S from '../../styles/feedStyles';
 
 interface PiusProps {
     pius: Piu[];

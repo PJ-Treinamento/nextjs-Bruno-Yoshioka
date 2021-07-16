@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Image from 'next/image';
 
 export const Header = styled.header`
@@ -143,7 +143,5 @@ export const Piar = styled.input`
 
 export const TxtArea = styled.textarea<{ overLimit: boolean }>`
     font-size: small;
-    ${({ overLimit }) => css`
-        color: ${overLimit ? 'red' : 'black'};
-    `}//color: ${(props) => (props.overLimit ? 'red' : 'black')};
+    color: ${(props) => (props.overLimit ? 'red' : 'black')};
 `;

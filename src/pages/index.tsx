@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAuth } from 'hooks/auth';
 import { parseCookies } from 'nookies';
 import Logo from '../assets/Logo.svg';
-import * as S from './styles';
+import * as S from '../styles/landingStyles';
 
 const Login: NextPage = () => {
     const { login } = useAuth();
@@ -13,7 +13,7 @@ const Login: NextPage = () => {
     return (
         <S.Container>
             <S.Esquerda>
-                <S.Imagem src={Logo} alt="Logo" />
+                <S.Imagem src={Logo} alt="Logo" height={200} width={200} />
                 <S.Nome>Piupiuwer</S.Nome>
                 <S.Slogan>Seja bem vindo</S.Slogan>
                 <S.By>By Poli Júnior© 2021</S.By>

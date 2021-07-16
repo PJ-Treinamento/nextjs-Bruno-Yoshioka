@@ -7,7 +7,7 @@ export const Container = styled.div`
     justify-content: space-evenly;
     height: 100vh;
     width: 100vw;
-    background-color: #e8e6f8;
+    background-color: #685b7c;
     > div {
         height: 600px;
         width: 400px;
