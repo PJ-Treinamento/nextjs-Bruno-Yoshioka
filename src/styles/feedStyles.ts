@@ -11,7 +11,7 @@ export const Header = styled.header`
     width: 100%;
     height: 80px;
     box-sizing: border-box;
-    background-color: #ffffff;
+    background-color: #685b7c;
     padding-left: 20px;
     padding-right: 20px;
 
@@ -29,7 +29,7 @@ export const Header = styled.header`
 
 export const Feed = styled.div`
     width: 100%;
-    background-color: #e8e6f8;
+    background-color: #3f3d56;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,7 +44,7 @@ export const Feed = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        background-color: #e8e6f8;
+        background-color: #3f3d56;
         z-index: 1;
         border-bottom: 2px inset #98989f;
 
@@ -100,7 +100,7 @@ export const Feed = styled.div`
 `;
 
 export const Contagem = styled.p<{ overLimit: boolean }>`
-    color: ${(props) => (props.overLimit ? 'red' : 'black')};
+    color: ${(props) => (props.overLimit ? 'red' : 'white')};
 `;
 
 export const Imagem = styled(Image)`
@@ -125,14 +125,16 @@ export const Search = styled.input`
     border: 1px solid #98989f;
     margin-right: 16px;
     padding-left: 8px;
+    outline: none;
 `;
 
 export const Logout = styled.button`
     padding: 10px;
-    background-color: #685b7c;
+    background-color: #3f3d56;
     color: #f1f1f1;
     border-radius: 8px;
     cursor: pointer;
+    border: none;
 `;
 
 export const Piar = styled.input`
@@ -144,4 +146,5 @@ export const Piar = styled.input`
 export const TxtArea = styled.textarea<{ overLimit: boolean }>`
     font-size: small;
     color: ${(props) => (props.overLimit ? 'red' : 'black')};
+    outline: none;
 `;
