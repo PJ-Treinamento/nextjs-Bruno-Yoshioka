@@ -5,7 +5,7 @@ export const Card = styled.div<{ displayed: boolean }>`
     display: ${(props) => (props.displayed ? 'flex' : 'none')};
     width: 100%;
     height: auto;
-    border: 1.5px solid #685b7c;
+    border: 1.5px solid;
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 4px;
@@ -13,6 +13,7 @@ export const Card = styled.div<{ displayed: boolean }>`
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
+    background-color: #685b7c;
 `;
 
 export const CardHeader = styled.div`
@@ -38,13 +39,15 @@ export const UserImage = styled(Image)`
 `;
 
 export const UserName = styled.h3`
+    margin-left: 8px;
     font-size: medium;
-    font: bold #000000;
+    color: #ffffff;
 `;
 
 export const PiuText = styled.p`
     font-size: medium;
     margin-top: 10px;
+    color: #ffffff;
 `;
 
 export const CardF = styled.div`
