@@ -1,58 +1,66 @@
-import React from 'react';
+import { User, PiuLike } from 'interfaces';
+import { parseCookies } from 'nookies';
+import React, { useState } from 'react';
+import api from 'services/api';
 import LikeR from '../../assets/LikeR.svg';
 import StarA from '../../assets/StarA.svg';
 import trash from '../../assets/trash.svg';
 import * as S from './styles';
 
-interface User {
+interface NovoPiu {
     id: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    about: string;
-    photo: string;
-    pius: Piu[];
+    user: User;
     likes: PiuLike[];
-    following: User[];
-    followers: User[];
-    favorites: Piu[];
-}
-
-export type Piu = {
-    id: string;
-    user: User;
-    likes: number;
     text: string;
-};
-
-interface PiuLike {
-    id: string;
-    user: User;
-    piu: Piu;
 }
 
-const PiuCard: React.FC<Piu> = ({ user, likes, text }) => {
+const PiuCard: React.FC<NovoPiu> = ({ id, user, likes, text }) => {
+    let { photo } = user;
+    if (photo === '.....') photo = trash;
+    const { 'piupiuwerAuth.token': token } = parseCookies();
+    const { 'piupiuwerAuth.username': username } = parseCookies();
+    const [displayed, setDisplayed] = useState(true);
+
+    const deletePiu = async () => {
+        if (user.username === username) {
+            await api.delete('/pius', {
+                data: { piu_id: id },
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setDisplayed(false);
+        }
+    };
+
     return (
         <>
-            <S.Card>
+            <S.Card displayed={displayed}>
                 <S.CardHeader>
                     <S.User>
-                        <S.UserImage src={user.photo} alt="user_photo" />
-                        <S.UserName>{user.firstName}</S.UserName>
+                        <S.UserImage
+                            src={photo || trash}
+                            alt="user_photo"
+                            width={50}
+                            height={50}
+                        />
+                        <S.UserName>{user.first_name}</S.UserName>
                     </S.User>
-                    <S.Buttons>
-                        <S.ImgButtonD src={trash} alt="Buttons" />
+                    <S.Buttons onClick={() => deletePiu()}>
+                        <S.ImgButtonD
+                            src={trash}
+                            alt="Buttons"
+                            width={30}
+                            height={30}
+                        />
                     </S.Buttons>
                 </S.CardHeader>
                 <S.PiuText>{text}</S.PiuText>
                 <S.CardF>
                     <S.Buttons>
-                        <S.ImgButtonL src={LikeR} />
-                        {likes} likes
+                        <S.ImgButtonL src={LikeR} width={30} height={30} />
+                        {likes.length} likes
                     </S.Buttons>
                     <S.Buttons>
-                        <S.ImgButtonF src={StarA} />
+                        <S.ImgButtonF src={StarA} width={30} height={30} />
                     </S.Buttons>
                 </S.CardF>
             </S.Card>
