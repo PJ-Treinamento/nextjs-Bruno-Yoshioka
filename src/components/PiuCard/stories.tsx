@@ -1,6 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { Piu } from 'interfaces';
 import React from 'react';
-import PiuCard, { Piu } from '.';
+import PiuCard from '.';
 
 export default {
     title: 'Commons/PiuCard',
@@ -10,7 +11,7 @@ export default {
             photo: 'https://i.imgur.com/162UmfZ.jpg',
             firstName: 'Bruno'
         },
-        likes: 5,
+        likes: [[], [], [], [], []],
         text: 'mano do ceu'
     }
 } as Meta;

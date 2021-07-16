@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
-export const Card = styled.div`
+export const Card = styled.div<{ displayed: boolean }>`
+    display: ${(props) => (props.displayed ? 'flex' : 'none')};
     width: 100%;
     height: auto;
     border: 1.5px solid #685b7c;
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 4px;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
