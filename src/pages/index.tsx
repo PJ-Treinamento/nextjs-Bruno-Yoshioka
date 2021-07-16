@@ -13,7 +13,7 @@ const Login: NextPage = () => {
     return (
         <S.Container>
             <S.Esquerda>
-                <S.Imagem src={Logo} alt="Logo" />
+                <S.Imagem src={Logo} alt="Logo" height={200} width={200} />
                 <S.Nome>Piupiuwer</S.Nome>
                 <S.Slogan>Seja bem vindo</S.Slogan>
                 <S.By>By Poli Júnior© 2021</S.By>
