@@ -5,7 +5,7 @@ export const Card = styled.div<{ displayed: boolean }>`
     display: ${(props) => (props.displayed ? 'flex' : 'none')};
     width: 100%;
     height: auto;
-    border: 1.5px solid #685b7c;
+    border: 1.5px solid;
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 4px;
