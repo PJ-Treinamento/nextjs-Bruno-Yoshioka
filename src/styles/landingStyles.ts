@@ -25,10 +25,12 @@ export const Container = styled.div`
 `;
 
 export const Esquerda = styled.div`
+    background-color: #e8e6f8;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    border-radius: 16px;
 `;
 
 export const Imagem = styled(Image)`
@@ -49,6 +51,17 @@ export const By = styled.p`
 `;
 
 export const Direita = styled.div`
+    background-color: #e8e6f8;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 16px;
+`;
+
+export const LoginBox = styled.div`
+    height: 560px;
+    width: 360px;
     background-color: #ffffff;
     display: flex;
     align-items: center;
@@ -64,7 +77,7 @@ export const Log = styled.h2`
 `;
 
 export const Input = styled.input`
-    width: 350px;
+    width: 328px;
     height: 40px;
     margin-bottom: 16px;
     border: 1px solid black;
@@ -73,7 +86,7 @@ export const Input = styled.input`
 
 export const LogIn = styled.button`
     margin-top: 24px;
-    width: 350px;
+    width: 328px;
     height: 40px;
     background-color: #ff477e;
     color: #ffffff;

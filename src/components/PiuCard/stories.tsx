@@ -9,7 +9,7 @@ export default {
     args: {
         user: {
             photo: 'https://i.imgur.com/162UmfZ.jpg',
-            firstName: 'Bruno'
+            first_name: 'Bruno'
         },
         likes: [[], [], [], [], []],
         text: 'mano do ceu'

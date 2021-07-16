@@ -5,6 +5,7 @@ import api from 'services/api';
 import LikeR from '../../assets/LikeR.svg';
 import StarA from '../../assets/StarA.svg';
 import trash from '../../assets/trash.svg';
+import profile from '../../assets/Profile.svg';
 import * as S from './styles';
 
 interface NovoPiu {
@@ -16,7 +17,7 @@ interface NovoPiu {
 
 const PiuCard: React.FC<NovoPiu> = ({ id, user, likes, text }) => {
     let { photo } = user;
-    if (photo === '.....') photo = trash;
+    if (photo === '.....') photo = profile;
     const { 'piupiuwerAuth.token': token } = parseCookies();
     const { 'piupiuwerAuth.username': username } = parseCookies();
     const [displayed, setDisplayed] = useState(true);
@@ -37,7 +38,7 @@ const PiuCard: React.FC<NovoPiu> = ({ id, user, likes, text }) => {
                 <S.CardHeader>
                     <S.User>
                         <S.UserImage
-                            src={photo || trash}
+                            src={photo || profile}
                             alt="user_photo"
                             width={50}
                             height={50}
