@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAuth } from 'hooks/auth';
 import { parseCookies } from 'nookies';
 import Logo from '../assets/Logo.svg';
-import * as S from './styles';
+import * as S from '../styles/landingStyles';
 
 const Login: NextPage = () => {
     const { login } = useAuth();
