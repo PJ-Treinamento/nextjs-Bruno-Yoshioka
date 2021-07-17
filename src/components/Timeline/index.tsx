@@ -14,12 +14,18 @@ const Timeline: React.FC<InterfaceTimeline> = ({ pius, search, user }) => {
             const array = [];
             for (let i = 0; i < pius.length; i++) {
                 let liked = Like;
-                pius[i].likes.forEach((like) => {
-                    if (like.user.username === user?.username) liked = LikeR;
+                pius[i].likes.map((like) => {
+                    if (like.user.username === user?.username) {
+                        liked = LikeR;
+                    }
+                    return null;
                 });
                 let favd = Star;
-                user?.favorites?.forEach((fav) => {
-                    if (fav.id === pius[i].id) favd = StarY;
+                user?.favorites?.map((fav) => {
+                    if (fav.id === pius[i].id) {
+                        favd = StarY;
+                    }
+                    return null;
                 });
                 let mine = false;
                 if (pius[i].user.username === user?.username) mine = true;
@@ -39,8 +45,8 @@ const Timeline: React.FC<InterfaceTimeline> = ({ pius, search, user }) => {
     }, [pius, user?.username, user?.favorites]);
 
     return (
-        <>
-            {processedPius.forEach((piu) => {
+        <div key={processedPius.length}>
+            {processedPius.map((piu) => {
                 if (
                     search === '' ||
                     piu.user.first_name
@@ -63,9 +69,9 @@ const Timeline: React.FC<InterfaceTimeline> = ({ pius, search, user }) => {
                         />
                     );
                 }
-                return <></>;
+                return null;
             })}
-        </>
+        </div>
     );
 };
 

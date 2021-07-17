@@ -73,7 +73,7 @@ const PiuCard: React.FC<ProcessedPiu> = ({
 
     return (
         <>
-            <S.Card displayed={displayed}>
+            <S.Card displayed={displayed} key={id}>
                 <S.CardHeader>
                     <S.User>
                         <S.UserImage
