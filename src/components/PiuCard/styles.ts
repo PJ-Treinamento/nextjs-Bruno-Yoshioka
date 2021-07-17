@@ -5,10 +5,9 @@ export const Card = styled.div<{ displayed: boolean }>`
     display: ${(props) => (props.displayed ? 'flex' : 'none')};
     width: 100%;
     height: auto;
-    border: 1.5px solid;
     border-radius: 8px;
     padding: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -76,10 +75,20 @@ export const Buttons = styled.button`
     }
 `;
 
+export const DelButton = styled.button<{ mine: boolean }>`
+    display: ${(props) => (props.mine === true ? 'flex' : 'none')};
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 8px;
+    padding: 2px;
+`;
+
 export const ImgButtonL = styled(Image)`
     height: 30px;
     width: 30px;
-    margin-right: 16px;
 `;
 export const ImgButtonF = styled(Image)`
     height: 30px;
@@ -87,8 +96,8 @@ export const ImgButtonF = styled(Image)`
 `;
 
 export const LikeText = styled.p`
-    padding-right: 8px;
-    cursor: pointer;
+    margin-left: 8px;
+    color: white;
 `;
 
 export const ImgButtonD = styled(Image)`

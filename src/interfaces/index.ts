@@ -44,3 +44,23 @@ export interface LoginCredentials {
     email: string;
     password: string;
 }
+
+export interface InterfaceTimeline {
+    pius: Piu[];
+    search: string;
+    user: User;
+}
+
+export interface ProcessedPiu {
+    id: string;
+    user: User;
+    likes: PiuLike[];
+    text: string;
+    favd: string;
+    liked: string;
+    mine: boolean;
+}
+
+export interface PiuId {
+    id: string;
+}

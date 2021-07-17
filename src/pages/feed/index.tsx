@@ -1,25 +1,27 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { ChangeEvent, useState } from 'react';
-import { Piu } from 'interfaces';
+import { Piu, User } from 'interfaces';
 import { AxiosResponse } from 'axios';
 import { parseCookies } from 'nookies';
 import api from 'services/api';
 import { useAuth } from 'hooks/auth';
 import { getAPIClient } from 'services/axios';
-import PiuCard from '../../components/PiuCard';
+import Timeline from 'components/Timeline';
 import Logo from '../../assets/Logo.svg';
 import * as S from '../../styles/feedStyles';
 
 interface PiusProps {
     pius: Piu[];
+    user: User;
 }
 interface Texto {
     text: string;
 }
 
-const Feed: NextPage<PiusProps> = ({ pius }) => {
+const Feed: NextPage<PiusProps> = ({ pius, user }) => {
     const { logout } = useAuth();
 
+    const [timelinePius, setTimelinePius] = useState<Piu[]>(pius);
     const [textoPiu, setTextoPiu] = useState<string>('');
     const [search, setSearch] = useState('');
     const [overLimit, setOverLimit] = useState(false);
@@ -34,7 +36,7 @@ const Feed: NextPage<PiusProps> = ({ pius }) => {
 
     const postPiu = async ({ text }: Texto) => {
         if (textoPiu.length >= 0 && textoPiu.length <= 140) {
-            await api.post(
+            const response = await api.post(
                 '/pius',
                 { text },
                 {
@@ -43,6 +45,15 @@ const Feed: NextPage<PiusProps> = ({ pius }) => {
                     }
                 }
             );
+            const newPiu: Piu = {
+                id: response.data.id,
+                user,
+                likes: [],
+                text: textoPiu.trim(),
+                created_at: response.data.created_at,
+                updated_at: response.data.updated_at
+            };
+            setTimelinePius([newPiu, ...pius]);
             setTextoPiu('');
             setReload(reload + 1);
         }
@@ -92,24 +103,7 @@ const Feed: NextPage<PiusProps> = ({ pius }) => {
                     </div>
                 </div>
                 <div>
-                    {pius?.map((piu) => {
-                        if (
-                            search === '' ||
-                            piu.user.first_name
-                                .toLowerCase()
-                                .includes(search.toLowerCase())
-                        ) {
-                            return (
-                                <PiuCard
-                                    id={piu.id}
-                                    user={piu.user}
-                                    likes={piu.likes}
-                                    text={piu.text}
-                                />
-                            );
-                        }
-                        return <></>;
-                    })}
+                    <Timeline pius={timelinePius} search={search} user={user} />
                 </div>
             </S.Feed>
         </>
@@ -121,6 +115,7 @@ export default Feed;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const apiClient = getAPIClient(ctx);
     const { 'piupiuwerAuth.token': token } = parseCookies(ctx);
+    const { 'piupiuwerAuth.username': username } = parseCookies(ctx);
 
     if (!token) {
         return {
@@ -132,13 +127,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
     const response: AxiosResponse<Piu[]> = await apiClient.get('/pius', {
         headers: {
-            Authorization: `Bearer: ${token}`
+            Authorization: `Bearer ${token}`
         }
     });
 
+    const userResponse: AxiosResponse<User[]> = await api.get(
+        `/users?username=${username}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
     return {
         props: {
-            pius: response.data
+            pius: response.data,
+            user: userResponse.data[0]
         }
     };
 };

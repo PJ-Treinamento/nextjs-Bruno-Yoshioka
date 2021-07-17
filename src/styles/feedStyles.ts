@@ -16,8 +16,8 @@ export const Header = styled.header`
     padding-right: 20px;
 
     h1 {
-        font: 500;
-        color: #3f3d56;
+        font-size: 900;
+        color: #ff477e;
     }
 
     @media (max-width: 650px) {
