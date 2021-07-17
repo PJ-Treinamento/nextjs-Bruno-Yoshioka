@@ -1,6 +1,8 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { Piu } from 'interfaces';
+import { ProcessedPiu } from 'interfaces';
 import React from 'react';
+import LikeR from 'assets/LikeR.svg';
+import StarY from 'assets/StarY.svg';
 import PiuCard from '.';
 
 export default {
@@ -12,8 +14,11 @@ export default {
             first_name: 'Bruno'
         },
         likes: [[], [], [], [], []],
-        text: 'mano do ceu'
+        text: 'mano do ceu',
+        favd: StarY,
+        liked: LikeR,
+        mine: true
     }
 } as Meta;
 
-export const Default: Story<Piu> = (args) => <PiuCard {...args} />;
+export const Default: Story<ProcessedPiu> = (args) => <PiuCard {...args} />;

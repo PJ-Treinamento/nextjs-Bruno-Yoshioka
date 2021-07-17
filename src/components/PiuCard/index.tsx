@@ -1,26 +1,65 @@
-import { User, PiuLike } from 'interfaces';
+import { ProcessedPiu } from 'interfaces';
 import { parseCookies } from 'nookies';
 import React, { useState } from 'react';
 import api from 'services/api';
-import LikeR from '../../assets/LikeR.svg';
-import StarA from '../../assets/StarA.svg';
-import trash from '../../assets/trash.svg';
+import Like from 'assets/Like.svg';
+import LikeR from 'assets/LikeR.svg';
+import Star from 'assets/Star.svg';
+import StarY from 'assets/StarY.svg';
+import trash from 'assets/trash.svg';
 import profile from '../../assets/Profile.svg';
 import * as S from './styles';
 
-interface NovoPiu {
-    id: string;
-    user: User;
-    likes: PiuLike[];
-    text: string;
-}
-
-const PiuCard: React.FC<NovoPiu> = ({ id, user, likes, text }) => {
+const PiuCard: React.FC<ProcessedPiu> = ({
+    id,
+    user,
+    likes,
+    text,
+    liked,
+    favd,
+    mine
+}) => {
     let { photo } = user;
     if (photo === '.....') photo = profile;
     const { 'piupiuwerAuth.token': token } = parseCookies();
     const { 'piupiuwerAuth.username': username } = parseCookies();
+    const [isLiked, setIsLiked] = useState(liked);
+    const [isFavd, setIsFavd] = useState(favd);
+    const [likeCounter, setLikeCounter] = useState(likes.length);
     const [displayed, setDisplayed] = useState(true);
+
+    const likePiu = async (piuId: string) => {
+        const response = await api.post(
+            '/pius/like',
+            { piu_id: piuId },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (response.data.operation === 'like') {
+            setIsLiked(LikeR);
+            setLikeCounter(likeCounter + 1);
+        } else {
+            setIsLiked(Like);
+            setLikeCounter(likeCounter - 1);
+        }
+    };
+
+    const favPiu = async (piuId: string) => {
+        if (isFavd === Star) {
+            setIsFavd(StarY);
+            await api.post(
+                '/pius/favorite',
+                { piu_id: piuId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+        } else {
+            setIsFavd(Star);
+            await api.post(
+                '/pius/unfavorite',
+                { piu_id: piuId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+        }
+    };
 
     const deletePiu = async () => {
         if (user.username === username) {
@@ -45,23 +84,33 @@ const PiuCard: React.FC<NovoPiu> = ({ id, user, likes, text }) => {
                         />
                         <S.UserName>{user.first_name}</S.UserName>
                     </S.User>
-                    <S.Buttons onClick={() => deletePiu()}>
+                    <S.DelButton onClick={() => deletePiu()} mine={mine}>
                         <S.ImgButtonD
                             src={trash}
                             alt="Buttons"
                             width={30}
                             height={30}
                         />
-                    </S.Buttons>
+                    </S.DelButton>
                 </S.CardHeader>
                 <S.PiuText>{text}</S.PiuText>
                 <S.CardF>
                     <S.Buttons>
-                        <S.ImgButtonL src={LikeR} width={30} height={30} />
-                        {likes.length} likes
+                        <S.ImgButtonL
+                            onClick={() => likePiu(id)}
+                            src={isLiked}
+                            width={30}
+                            height={30}
+                        />
+                        <S.LikeText>{likeCounter} likes</S.LikeText>
                     </S.Buttons>
                     <S.Buttons>
-                        <S.ImgButtonF src={StarA} width={30} height={30} />
+                        <S.ImgButtonF
+                            onClick={() => favPiu(id)}
+                            src={isFavd}
+                            width={30}
+                            height={30}
+                        />
                     </S.Buttons>
                 </S.CardF>
             </S.Card>
